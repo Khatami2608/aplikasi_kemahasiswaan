@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+		      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		        <h1 class="h2">Data Kegiatan Kampus Politeknik Aceh</h1>
+		        <div class="btn-toolbar mb-2 mb-md-0">
+		        </div>
+		      </div>
+
+		      <div class="card">
+		        <div class="card-header">
+		          Table Kegiatan
+		        </div>
+		        <div class="card-body">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<h3>
+									Data Buku : 
+									<a href="{% url 'tambah_kegiatan' %}" class="btn btn-success">Tambah +</a>
+								</h3><br>
+									{% for message in messages %}
+										{% if messages %}
+											<div class="alert alert-success">
+												{{ message }}
+											</div>
+										{% endif %}
+									{% endfor %}
+								<table class="table table-bordered table-striped table-light">
+								  <thead class="text-center">
+								  	<tr>
+										<th>Kegiatan</th>
+										<th>Publikasi</th>
+										<th>Deskripsi</th>
+										<th>Image</th>
+										<th>Action</th>
+								  	</tr>
+								  </thead>
+								  <tbody>
+									<tbody>
+										{% for kegiatan in dt_kegiatan %}
+										<tr>
+											<td>
+												<a href="{% url 'ubah_kegiatan' kegiatan.id %}">{{ kegiatan.judul }}</a>
+											</td>
+											<td>{{ kegiatan.tanggal_publikasi }}</td>
+											<td>{{ kegiatan.Deskripsi }}</td>
+											{% if kegiatan.image %}
+											    <td><img src="{{ kegiatan.image.url }}" /></td>
+											{% else %}
+											    <td>No image available</td>
+											{% endif %}							
+											<td>
+												<center>
+													<button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#hapus-{{ kegiatan.id }}">Hapus</button>
+												</center>
+											</td>
+											<div class="modal" tabindex="-1" id="hapus-{{ kegiatan.id }}">
+											  <div class="modal-dialog">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											        <h5 class="modal-title">Hapus</h5>
+											      </div>
+											      <div class="modal-body">
+											        apakah anda yakin ingin menghapus <strong>{{ kegiatan.judul | upper }}</strong>
+											      </div>
+											      <div class="modal-footer">
+											        <a href="{% url 'hapus_kegiatan' kegiatan.id %}" class="btn btn-danger">Hapus</a>
+											        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+											      </div>
+											    </div>
+											  </div>
+											</div>
+										</tr>
+										{% endfor %}
+								  </tbody>
+								</table>			
+							</div>
+						</div>
+					</div>
+				</div>
+		    </div>
+		  </main>
+	
+	
+{% endblock %}

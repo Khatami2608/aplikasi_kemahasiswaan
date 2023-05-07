@@ -1,0 +1,13 @@
+body {
+  background-color: #f5f5f5;
+}
+
+.sidebar {
+  background-color: #0A2647; /* warna background */
+  color: white; /* warna teks */
+}
+
+.sidebar a {
+  color: white; /* warna teks link */
+}
+
